@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <!--加载配置文件-->
+    <properties resource="jdbc.properties"/>
+
+    <!--起别名-->
+    <typeAliases>
+        <typeAlias type="com.Demo.domain.Order" alias="order"></typeAlias>
+        <typeAlias type="com.Demo.domain.User" alias="user"></typeAlias>
+        <typeAlias type="com.Demo.domain.Role" alias="role"></typeAlias>
+    </typeAliases>
+
+    <!--注册类型处理器-->
+    <typeHandlers>
+        <typeHandler handler="com.Demo.TypeHandler.DateToLongUtils"></typeHandler>
+    </typeHandlers>
+
+    <!--配置插件（分页插件）-->
+
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+
+        </plugin>
+    </plugins>
+    
+
+    <!--配置数据源环境-->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"></transactionManager>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"></property>
+                <property name="url" value="${jdbc.url}"></property>
+                <property name="username" value="${jdbc.username}"></property>
+                <property name="password" value="${jdbc.password}"></property>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!--加载映射文件-->
+    <mappers>
+        <mapper resource="com/Demo/mapper/UserMapper.xml"></mapper>
+        <mapper resource="com/Demo/mapper/OrderMapper.xml"></mapper>
+    </mappers>
+
+</configuration>
+
